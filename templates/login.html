@@ -26,7 +26,7 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             background-color: white;
-            opacity: 0.8;
+            opacity: 0.8; /* Changed to 0.8 for better visibility */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -64,8 +64,12 @@
             background-color: #0056b3;
         }
 
-        p {
-            text-align: center;
+        .error-message {
+            color: #ff0000; /* Red color for errors */
+            font-size: 14px;
+            margin-top: -10px; /* Adjust spacing */
+            margin-bottom: 10px;
+            text-align: center; /* Center error message */
         }
 
         .form-toggle {
@@ -73,16 +77,19 @@
             margin-top: 20px;
         }
 
-        .error-message {
-            color: #ff0000; /* Red color for errors */
-            font-size: 14px;
-            margin-top: -10px; /* Adjust spacing */
-            margin-bottom: 10px;
+        .form-toggle button {
+            background-color: #28a745;
+        }
+
+        .form-toggle button:hover {
+            background-color: #218838;
         }
 
         .form-section {
             background-color: rgba(255, 255, 255, 0.8); /* Light translucent white */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
             border-radius: 15px; /* Rounded corners */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
             padding: 20px; /* Spacing inside the form */
             max-width: 400px; /* Limit width of the form */
             margin: auto; /* Center the form */
@@ -100,15 +107,14 @@
             <label for="loginPassword">Password:</label>
             <input type="password" id="loginPassword" name="password" required>
 
-            <div class="error-message">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <p class="{{ category }}">{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div>
+            <!-- Display error message inside the form -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="error-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
             <button type="submit">Login</button>
         </form>
@@ -124,11 +130,17 @@
             <label for="registerName">Full Name:</label>
             <input type="text" id="registerName" name="name" required>
 
+            <label for="registerEmail">Email:</label>
+            <input type="email" id="registerEmail" name="email" required>
+
             <label for="registerUserid">User ID:</label>
             <input type="text" id="registerUserid" name="userid" required>
 
             <label for="registerPassword">Password:</label>
             <input type="password" id="registerPassword" name="password" required>
+
+            <label for="registerConfirmPassword">Confirm Password:</label>
+            <input type="password" id="registerConfirmPassword" name="confirmPassword" required>
 
             <button type="submit">Register</button>
         </form>
