@@ -76,24 +76,27 @@ def login_user(user_id, password):
     if conn:
         try:
             with conn.cursor() as cur:
-                # Check if the user exists
+                # Fetch the stored hashed password
                 cur.execute("SELECT password FROM users WHERE user_id = %s", (user_id,))
                 result = cur.fetchone()
-
+                
                 if result is None:
-                    return "User ID not found."  # Specific error message
+                    print("Invalid User ID.")
+                    return False
 
-                # Assuming the password is stored as a string
+                # Use the string directly
                 stored_password = result[0]  # Directly use the string
 
-                # Verify the password
+                # Check if the password matches
                 if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
-                    return "Login successful!"
+                    print("Login successful!")
+                    return True
                 else:
-                    return "Incorrect password."  # Specific error message
+                    print("Invalid password.")
+                    return False
         except Exception as e:
             print("Error during login:", e)
-            return "An error occurred during login."
+            return False
         finally:
             conn.close()
 
