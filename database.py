@@ -58,8 +58,10 @@ def login_user(user_id, password):
                 if result is None:
                     return "User ID not found."  # Specific error message
 
-                stored_password = result[0].tobytes().decode('utf-8')
+                # Directly get the stored password as a string
+                stored_password = result[0]  # No need for tobytes()
 
+                # Check if the provided password matches the stored hashed password
                 if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
                     return "Login successful!"
                 else:
