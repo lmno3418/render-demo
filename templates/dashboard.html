@@ -3,64 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>User Dashboard</title>
     <style>
         body {
-            background-image: url("https://images8.alphacoders.com/124/thumb-1920-1243956.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #f4f4f9;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
         }
+
         .container {
-            max-width: 400px;
             width: 100%;
+            max-width: 500px;
             padding: 20px;
-            background-color: white;
+            border: 1px solid #ddd;
             border-radius: 10px;
-            opacity: 0.9;
+            background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+
         h1 {
             margin-bottom: 20px;
         }
-        .card {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
+
+        p {
+            margin: 10px 0;
         }
-        .logout {
-            display: block;
-            margin-top: 20px;
+
+        .logout-button {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #dc3545;
             color: white;
-            text-decoration: none;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
         }
-        .logout:hover {
-            background-color: #0056b3;
+
+        .logout-button:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome, {{ full_name }}</h1>
-        <div class="card">
-            <strong>User ID:</strong> {{ user_id }}
-        </div>
-        <div class="card">
-            <strong>Email:</strong> {{ email }}
-        </div>
-        <a href="/" class="logout">Logout</a>
+        <h1>Welcome, {{ full_name }}!</h1>
+        <p>User ID: {{ user_id }}</p>
+        <p>Email: {{ email }}</p>
+        <form action="/logout" method="post">
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
     </div>
 </body>
 </html>

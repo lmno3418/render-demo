@@ -36,7 +36,7 @@ def register_user(user_id, password, full_name, email):
                 cur.execute("""
                     INSERT INTO users (user_id, password, full_name, email)
                     VALUES (%s, %s, %s, %s)
-                """, (user_id, hashed_password, full_name, email))
+                """, (user_id, hashed_password.decode('utf-8'), full_name, email))
                 conn.commit()
                 return True
         except Exception as e:
@@ -58,10 +58,8 @@ def login_user(user_id, password):
                 if result is None:
                     return "User ID not found."  # Specific error message
 
-                # Directly get the stored password as a string
-                stored_password = result[0]  # No need for tobytes()
+                stored_password = result[0].decode('utf-8')
 
-                # Check if the provided password matches the stored hashed password
                 if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
                     return "Login successful!"
                 else:
