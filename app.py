@@ -57,5 +57,11 @@ def dashboard():
         flash("Error loading dashboard. Please try again.", "danger")
         return redirect(url_for('home'))
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)  # Remove user ID from session
+    flash("You have been logged out.", "success")
+    return redirect(url_for('home'))
+
 if __name__ == '__main__':
     app.run(debug=True)
