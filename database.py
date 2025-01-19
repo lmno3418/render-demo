@@ -46,7 +46,7 @@ def register_user(user_id, password, full_name, email):
             conn.close()
 
 # Verify login credentials
-"""def login_user(user_id, password):
+def login_user(user_id, password):
     conn = connect_db()
     if conn:
         try:
@@ -68,38 +68,8 @@ def register_user(user_id, password, full_name, email):
             print("Error during login:", e)
             return "An error occurred during login."
         finally:
-            conn.close()"""
-            
-# Verify login credentials
-def login_user(user_id, password):
-    conn = connect_db()
-    if conn:
-        try:
-            with conn.cursor() as cur:
-                # Fetch the stored hashed password
-                cur.execute("SELECT password FROM users WHERE user_id = %s", (user_id,))
-                result = cur.fetchone()
-                
-                if result is None:
-                    print("Invalid User ID.")
-                    return False
-
-                # Use the string directly
-                stored_password = result[0]  # Directly use the string
-
-                # Check if the password matches
-                if bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
-                    print("Login successful!")
-                    return True
-                else:
-                    print("Invalid password.")
-                    return False
-        except Exception as e:
-            print("Error during login:", e)
-            return False
-        finally:
             conn.close()
-
+            
 # Fetch user details
 def get_user_details(user_id):
     conn = connect_db()
